@@ -15,7 +15,7 @@
         }
 
         body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
-        .code-font { font-family: 'Fira Code', monospace; font-size: 0.85rem; }
+        .code-font { font-family: 'Fira Code', monospace; font-size: 0.78rem; }
         
         .uml-box { border: 2px solid #334155; border-radius: 8px; background: #f8fafc; min-width: 200px; }
         .uml-header { background: #334155; color: white; padding: 8px; text-align: center; font-weight: bold; font-size: 0.8rem; }
@@ -27,310 +27,344 @@
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        pre { position: relative; }
-        .copy-btn { position: absolute; top: 10px; right: 10px; background: #334155; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; }
+        pre { position: relative; max-height: 600px; overflow-y: auto; background: #0f172a !important; }
+        
+        /* Custom scrollbar for code */
+        pre::-webkit-scrollbar { width: 8px; }
+        pre::-webkit-scrollbar-track { background: #1e293b; }
+        pre::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-900">
 
-    <!-- Navegación Superior -->
+    <!-- Navegación -->
     <nav class="bg-indigo-700 text-white p-4 shadow-lg sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <i class="fas fa-graduation-cap text-2xl"></i>
-                <span class="font-bold text-xl tracking-tight">PEDAGOGÍA <span class="text-indigo-200">SOFTWARE</span></span>
+                <i class="fas fa-university text-2xl"></i>
+                <span class="font-bold text-xl tracking-tight">POO <span class="text-indigo-200">PEDAGOGÍA</span></span>
             </div>
             <div class="hidden md:flex gap-8 font-medium text-sm">
-                <a href="#uml" class="hover:text-indigo-200 transition">DIAGRAMA UML</a>
-                <a href="#ejercicios" class="hover:text-indigo-200 transition">EJERCICIOS COMPLETOS</a>
+                <a href="#uml" class="hover:text-indigo-200 transition uppercase tracking-widest">Modelado</a>
+                <a href="#ejercicios" class="hover:text-indigo-200 transition uppercase tracking-widest">Ejercicios</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero / Contexto Pedagógico -->
-    <header class="bg-indigo-600 text-white py-16">
-        <div class="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-            <div>
-                <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
-                    Evolución del Paradigma de Programación
-                </h1>
-                <p class="text-lg text-indigo-100 mb-8">
-                    Análisis pedagógico secuencial: Desde la lógica estructurada en C# hasta la implementación avanzada de Herencia y Polimorfismo basada en el estándar UML.
-                </p>
-                <div class="flex gap-4">
-                    <span class="bg-indigo-800 px-4 py-2 rounded-lg text-xs font-bold"><i class="fas fa-bookmark mr-2"></i>UNIDAD I - IV</span>
-                    <span class="bg-indigo-800 px-4 py-2 rounded-lg text-xs font-bold"><i class="fas fa-code mr-2"></i>CLEAN CODE</span>
-                </div>
-            </div>
-            <div class="bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/20">
-                <h3 class="font-bold mb-4 flex items-center"><i class="fas fa-info-circle mr-2 text-indigo-300"></i>Objetivo Docente</h3>
-                <p class="text-sm text-indigo-50 text-justify">
-                    Mapear la transición técnica del estudiante para que identifique cómo la **Abstracción** reduce la complejidad y el **Encapsulamiento** protege la integridad de los datos en sistemas empresariales (Nómina).
-                </p>
-            </div>
+    <!-- Header -->
+    <header class="bg-indigo-600 text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl font-extrabold mb-4">Guía Técnica Completa de POO</h1>
+            <p class="text-indigo-100 max-w-2xl mx-auto">Análisis de la transición de paradigmas mediante el sistema de gestión de nómina.</p>
         </div>
     </header>
 
-    <!-- SECCIÓN UML (UNIDAD I) -->
-    <section id="uml" class="container mx-auto py-20 px-4">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-slate-800">Modelado del Sistema (UML)</h2>
-            <p class="text-slate-500 mt-2">Mapeo conceptual: Unidad I - Temas: Clases, Atributos, Métodos y Relaciones</p>
+    <!-- Sección UML -->
+    <section id="uml" class="container mx-auto py-16 px-4">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold">Modelado de Clases (Estándar UML)</h2>
+            <p class="text-slate-500">Reflejo de la Unidad I: "Construir diagramas del lenguaje de modelado unificado"</p>
         </div>
-
-        <div class="bg-white p-8 rounded-3xl shadow-xl border border-slate-200 flex flex-col items-center">
-            <!-- Representación Visual del UML del Documento -->
-            <div class="flex flex-col items-center gap-12">
-                <!-- Clase Abstracta Padre -->
-                <div class="uml-box shadow-lg w-64">
-                    <div class="uml-header">«Abstract»<br>clsTrabajadores</div>
-                    <div class="uml-body">
+        <div class="bg-white p-10 rounded-3xl shadow-xl border flex flex-col items-center">
+            <div class="flex flex-col items-center gap-8">
+                <!-- Base -->
+                <div class="uml-box shadow-md w-64 border-indigo-400">
+                    <div class="uml-header bg-indigo-600">«Abstract»<br>clsTrabajadores</div>
+                    <div class="uml-body text-left">
                         + isr: float<br>
                         + nombreTrabajador: string<br>
                         # sueldoNeto: float
                     </div>
-                    <div class="uml-body border-t border-slate-300 italic">
-                        + CalcularNomina()
-                    </div>
+                    <div class="uml-body border-t italic font-semibold">+ CalcularNomina(): float</div>
                 </div>
 
-                <div class="h-12 w-0.5 bg-slate-400 relative">
-                    <div class="absolute -bottom-1 -left-1.5 border-l-8 border-r-8 border-b-8 border-transparent border-b-slate-400"></div>
+                <div class="h-8 w-0.5 bg-slate-300 relative">
+                    <div class="absolute -bottom-1 -left-1.5 border-l-8 border-r-8 border-b-8 border-transparent border-b-slate-300"></div>
                 </div>
 
-                <div class="flex flex-wrap justify-center gap-8">
-                    <!-- Hijos -->
-                    <div class="uml-box w-56">
-                        <div class="uml-header">clsAdministrativos</div>
-                        <div class="uml-body">- sueldoBase: float</div>
-                        <div class="uml-body border-t border-slate-300 font-bold">+ CalcularNomina()</div>
+                <!-- Derivadas -->
+                <div class="flex flex-wrap justify-center gap-6">
+                    <div class="uml-box w-52">
+                        <div class="uml-header bg-slate-700">clsAdministrativos</div>
+                        <div class="uml-body text-left">- sueldoBase: float</div>
+                        <div class="uml-body border-t font-bold">+ CalcularNomina()</div>
                     </div>
-                    <div class="uml-box w-56">
-                        <div class="uml-header">clsProfesorAsignatura</div>
-                        <div class="uml-body">
+                    <div class="uml-box w-52">
+                        <div class="uml-header bg-slate-700">clsProfesorAsignatura</div>
+                        <div class="uml-body text-left">
                             - horasT: int<br>
+                            - pagoHora: float
+                        </div>
+                        <div class="uml-body border-t font-bold">+ CalcularNomina()</div>
+                    </div>
+                    <div class="uml-box w-52">
+                        <div class="uml-header bg-slate-700">clsProfesorTiempoCompleto</div>
+                        <div class="uml-body text-left">
                             - pagoHora: float<br>
                             - sueldoBruto: float
                         </div>
-                        <div class="uml-body border-t border-slate-300 font-bold">+ CalcularNomina()</div>
-                    </div>
-                    <div class="uml-box w-56">
-                        <div class="uml-header">clsProfesorTiempoCompleto</div>
-                        <div class="uml-body">
-                            - pagoHora: float<br>
-                            - sueldoBruto: float
-                        </div>
-                        <div class="uml-body border-t border-slate-300 font-bold">+ CalcularNomina()</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mt-12 p-6 bg-slate-50 rounded-xl w-full">
-                <h4 class="font-bold text-slate-700 mb-2"><i class="fas fa-link mr-2"></i>Impacto en Guía Temática:</h4>
-                <div class="grid md:grid-cols-2 gap-4 text-xs">
-                    <div class="flex gap-2">
-                        <span class="font-bold text-indigo-600">Saber Hacer:</span> "Construir diagramas del lenguaje de modelado unificado".
-                    </div>
-                    <div class="flex gap-2">
-                        <span class="font-bold text-indigo-600">Saber:</span> "Identificar relaciones estáticas y dinámicas entre objetos".
+                        <div class="uml-body border-t font-bold">+ CalcularNomina()</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECCIÓN EJERCICIOS (UNIDAD II, III, IV) -->
-    <section id="ejercicios" class="bg-slate-100 py-20 px-4">
+    <!-- Ejercicios -->
+    <section id="ejercicios" class="bg-slate-100 py-16 px-4">
         <div class="container mx-auto">
-            <div class="flex flex-col md:flex-row gap-8">
-                
-                <!-- Menú Lateral -->
-                <div class="md:w-1/4">
-                    <div class="sticky-menu space-y-2">
-                        <button onclick="openTab('tab1')" class="tab-btn w-full text-left p-4 rounded-xl font-bold text-sm transition bg-white shadow hover:bg-indigo-50 border-r-4 border-indigo-600" id="btn1">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Sidebar -->
+                <div class="lg:w-1/4">
+                    <div class="sticky-menu space-y-3">
+                        <button onclick="openTab('tab1')" class="tab-btn active w-full text-left p-4 rounded-xl font-bold text-xs bg-indigo-600 text-white shadow-lg border-r-4 border-white" id="btn1">
                             1. PARADIGMA ESTRUCTURADO
                         </button>
-                        <button onclick="openTab('tab2')" class="tab-btn w-full text-left p-4 rounded-xl font-bold text-sm transition bg-white shadow hover:bg-indigo-50" id="btn2">
-                            2. POO INICIAL (MÉTODOS)
+                        <button onclick="openTab('tab2')" class="tab-btn w-full text-left p-4 rounded-xl font-bold text-xs bg-white text-slate-600 shadow transition hover:bg-indigo-50" id="btn2">
+                            2. INTRODUCCIÓN A CLASES
                         </button>
-                        <button onclick="openTab('tab3')" class="tab-btn w-full text-left p-4 rounded-xl font-bold text-sm transition bg-white shadow hover:bg-indigo-50" id="btn3">
-                            3. POO REFINADO (ESTADO)
+                        <button onclick="openTab('tab3')" class="tab-btn w-full text-left p-4 rounded-xl font-bold text-xs bg-white text-slate-600 shadow transition hover:bg-indigo-50" id="btn3">
+                            3. ATRIBUTOS Y ABSTRACCIÓN
                         </button>
-                        <button onclick="openTab('tab4')" class="tab-btn w-full text-left p-4 rounded-xl font-bold text-sm transition bg-white shadow hover:bg-indigo-50" id="btn4">
-                            4. POO AVANZADO (HERENCIA)
+                        <button onclick="openTab('tab4')" class="tab-btn w-full text-left p-4 rounded-xl font-bold text-xs bg-white text-slate-600 shadow transition hover:bg-indigo-50" id="btn4">
+                            4. HERENCIA Y POLIMORFISMO
                         </button>
                     </div>
                 </div>
 
-                <!-- Contenido de Código -->
-                <div class="md:w-3/4">
+                <!-- Contenido -->
+                <div class="lg:w-3/4">
                     
                     <!-- TAB 1: ESTRUCTURADO -->
                     <div id="tab1" class="tab-content active">
-                        <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
-                            <div class="p-6 bg-slate-800 text-white flex justify-between">
-                                <h3 class="font-bold">Ejercicio 1: Lógica Secuencial</h3>
-                                <span class="text-xs bg-orange-500 px-2 py-1 rounded">Unidad I - Introducción</span>
+                        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                            <div class="p-6 bg-slate-800 text-white flex justify-between items-center">
+                                <h3 class="font-bold text-sm uppercase">Código Completo: Lógica Secuencial</h3>
+                                <span class="text-[10px] bg-orange-500 px-2 py-1 rounded">SIN CLASES</span>
                             </div>
                             <div class="p-8">
-                                <div class="mb-6 grid md:grid-cols-2 gap-6">
-                                    <div class="bg-orange-50 p-4 rounded-xl border-l-4 border-orange-400">
-                                        <h4 class="font-bold text-orange-800 text-sm mb-2 uppercase">Conceptos Clave</h4>
-                                        <ul class="text-xs space-y-2 text-orange-900">
-                                            <li>• <strong>Paradigma Estructurado:</strong> Programación basada en flujo de control y funciones.</li>
-                                            <li>• <strong>Funciones Estáticas:</strong> No requieren de una instancia para ejecutarse.</li>
-                                        </ul>
-                                    </div>
-                                    <div class="bg-slate-50 p-4 rounded-xl border-l-4 border-slate-400 text-xs">
-                                        <h4 class="font-bold text-slate-800 mb-2 uppercase tracking-widest">Guía Temática</h4>
-                                        <p>Se refleja el tema de **Sintaxis** y **Manejo de variables locales**. El estudiante aprende la lógica base antes de la abstracción.</p>
-                                    </div>
-                                </div>
-                                <pre class="code-block bg-slate-900 p-6 rounded-xl text-indigo-300 code-font">
-// CÓDIGO COMPLETO - PARADIGMA ESTRUCTURADO
+                                <p class="text-xs text-slate-500 mb-4"><strong>Concepto:</strong> Programación basada en el flujo de ejecución directo. Se observa el uso de métodos estáticos que actúan como "subrutinas".</p>
+                                <pre class="code-block p-6 rounded-xl text-indigo-300 code-font">
 internal class Program {
     static void Main(string[] args) {
         string nombreTrabajador;
         int opcion;
-        float sueldoBase, isr, sueldoBruto, pagoHora;
+        float sueldoBase, isr, sueldoBruto = 0, pagoHora;
         int horasT;
 
-        Console.WriteLine("1. Administrativo\n2. Profesor asignatura\n3. Profesor Tiempo Completo");
+        Console.WriteLine("1. Administrativo");
+        Console.WriteLine("2. Profesor de asignatura");
+        Console.WriteLine("3. Profesor de Tiempo Completo");
+        Console.WriteLine("Seleccione el tipo de empleado a calcular su nómina");
         opcion = int.Parse(Console.ReadLine());
+
         Console.WriteLine("Nombre del trabajador:");
         nombreTrabajador = Console.ReadLine();
 
         switch (opcion) {
             case 1:
-                Console.WriteLine("Sueldo base:");
+                Console.WriteLine("Ingresa su sueldo base:");
                 sueldoBase = float.Parse(Console.ReadLine());
-                Console.WriteLine("ISR:");
+                Console.WriteLine("Ingresa el impuesto sobre la renta (ISR):");
                 isr = float.Parse(Console.ReadLine());
                 sueldoBruto = CalcularNominaAdmon(sueldoBase, isr);
                 break;
-            // ... (Continúan casos 2 y 3)
+            case 2:
+                Console.WriteLine("Ingresa las horas trabajadas:");
+                pagoHora = float.Parse(Console.ReadLine());
+                Console.WriteLine("Ingresa el pago por hora:");
+                horasT = int.Parse(Console.ReadLine());
+                Console.WriteLine("Ingresa el impuesto sobre la renta (ISR):");
+                isr = float.Parse(Console.ReadLine());
+                sueldoBruto = CalcularNominaAsignatura(pagoHora, horasT, isr);
+                break;
+            case 3:
+                Console.WriteLine("Ingresa el pago por hora:");
+                pagoHora = float.Parse(Console.ReadLine());
+                Console.WriteLine("Ingresa el impuesto sobre la renta (ISR):");
+                isr = float.Parse(Console.ReadLine());
+                sueldoBruto = CalcularNominaCompleto(pagoHora, isr);
+                break;
         }
-        Console.WriteLine(nombreTrabajador + " Sueldo: " + sueldoBruto);
+
+        Console.WriteLine(nombreTrabajador + " Tu sueldo es: " + sueldoBruto);
+        Console.ReadKey();
     }
 
-    static float CalcularNominaAdmon(float sb, float isr) {
-        return sb - (sb * isr / 100);
+    // MÉTODOS ESTÁTICOS (Lógica desconectada de los datos)
+    static float CalcularNominaAdmon(float sueldoBase, float isr) {
+        return sueldoBase - (sueldoBase * isr / 100);
     }
-    // ... (Métodos para otros empleados)
+
+    static float CalcularNominaAsignatura(float pagoHora, int horasT, float isr) {
+        return (pagoHora * horasT) - isr;
+    }
+
+    static float CalcularNominaCompleto(float pagoHora, float isr) {
+        return (pagoHora * 40) - isr;
+    }
 }</pre>
                             </div>
                         </div>
                     </div>
 
-                    <!-- TAB 2: POO INICIAL -->
+                    <!-- TAB 2: TRÁNSITO A CLASES -->
                     <div id="tab2" class="tab-content">
-                        <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
-                            <div class="p-6 bg-slate-800 text-white flex justify-between">
-                                <h3 class="font-bold">Ejercicio 2: Salto al Objeto</h3>
-                                <span class="text-xs bg-blue-500 px-2 py-1 rounded">Unidad II - Clases</span>
+                        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                            <div class="p-6 bg-slate-800 text-white flex justify-between items-center">
+                                <h3 class="font-bold text-sm uppercase">Código Completo: Transición a Clases</h3>
+                                <span class="text-[10px] bg-blue-500 px-2 py-1 rounded">INSTANCIACIÓN</span>
                             </div>
                             <div class="p-8">
-                                <div class="mb-6 p-4 bg-blue-50 rounded-xl border-l-4 border-blue-400">
-                                    <p class="text-sm text-blue-900 leading-relaxed">
-                                        <strong>Conceptos de la Guía:</strong> Se aplican las definiciones de **Clase** y **Objeto**. Se observa la **Instanciación** en el Main: <code>clsAdministrativos admon = new clsAdministrativos();</code>.
-                                    </p>
-                                </div>
-                                <pre class="code-block bg-slate-900 p-6 rounded-xl text-indigo-300 code-font">
+                                <p class="text-xs text-slate-500 mb-4"><strong>Saber Hacer:</strong> "Construir objetos a partir de una clase". Aquí se separan las responsabilidades en una clase externa.</p>
+                                <pre class="code-block p-6 rounded-xl text-indigo-300 code-font">
+// DEFINICIÓN DE LA CLASE
 internal class clsAdministrativos {
+    // Método de clase
     public float CalcularNominaAdmon(float sueldoBase, float isr) {
         return sueldoBase - (sueldoBase * isr / 100);
     }
 }
 
+// PROGRAMA PRINCIPAL
 internal class Program {
     static void Main(string[] args) {
-        // Se crea el objeto (Instancia)
+        float sb, i, res;
+        Console.WriteLine("Sueldo Base:");
+        sb = float.Parse(Console.ReadLine());
+        Console.WriteLine("ISR:");
+        i = float.Parse(Console.ReadLine());
+
+        // PASO CRÍTICO: Instanciación del objeto
         clsAdministrativos admon = new clsAdministrativos();
-        // Llamada al método a través del objeto
-        float sueldo = admon.CalcularNominaAdmon(3000, 10);
+        
+        // Uso del objeto para realizar el cálculo
+        res = admon.CalcularNominaAdmon(sb, i);
+        
+        Console.WriteLine("Resultado: " + res);
     }
 }</pre>
                             </div>
                         </div>
                     </div>
 
-                    <!-- TAB 3: POO REFINADO -->
+                    <!-- TAB 3: ABSTRACCIÓN -->
                     <div id="tab3" class="tab-content">
-                        <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
-                            <div class="p-6 bg-slate-800 text-white flex justify-between">
-                                <h3 class="font-bold">Ejercicio 3: Abstracción de Estado</h3>
-                                <span class="text-xs bg-green-500 px-2 py-1 rounded">Unidad II - Atributos</span>
+                        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                            <div class="p-6 bg-slate-800 text-white flex justify-between items-center">
+                                <h3 class="font-bold text-sm uppercase">Código Completo: Abstracción de Atributos</h3>
+                                <span class="text-[10px] bg-green-500 px-2 py-1 rounded">ESTADO Y COMPORTAMIENTO</span>
                             </div>
                             <div class="p-8">
-                                <div class="mb-6 grid md:grid-cols-2 gap-6">
-                                    <div class="bg-green-50 p-4 rounded-xl border-l-4 border-green-400 text-xs">
-                                        <h4 class="font-bold text-green-800 uppercase mb-2">Abstracción</h4>
-                                        <p>Mapeo: Determinar solo atributos necesarios. El objeto ya no solo hace algo, **ES** algo.</p>
-                                    </div>
-                                    <div class="bg-green-50 p-4 rounded-xl border-l-4 border-green-400 text-xs text-green-900">
-                                        <h4 class="font-bold text-green-800 uppercase mb-2">Reflejo Curricular</h4>
-                                        <p>"Determinar los atributos y métodos que llevará el objeto".</p>
-                                    </div>
-                                </div>
-                                <pre class="code-block bg-slate-900 p-6 rounded-xl text-indigo-300 code-font">
+                                <p class="text-xs text-slate-500 mb-4"><strong>Concepto:</strong> El objeto ahora mantiene su propio <strong>Estado</strong> (Atributos) y no requiere pasar datos por parámetros en sus métodos.</p>
+                                <pre class="code-block p-6 rounded-xl text-indigo-300 code-font">
 internal class clsAdministrativos {
+    // ATRIBUTOS (Estado)
     public string nombreTrabajador;
     public float isr;
     public float sueldoBase;
     public float sueldoNeto;
 
-    public float CalcularNominaAdmon() {
-        // El método ya no pide parámetros, usa sus Atributos
+    // MÉTODO (Comportamiento que usa el estado interno)
+    public float CalcularNomina() {
         sueldoNeto = sueldoBase - (sueldoBase * isr / 100);
         return sueldoNeto;
+    }
+}
+
+internal class Program {
+    static void Main(string[] args) {
+        clsAdministrativos admon = new clsAdministrativos();
+        
+        Console.WriteLine("Nombre:");
+        admon.nombreTrabajador = Console.ReadLine();
+        Console.WriteLine("Sueldo Base:");
+        admon.sueldoBase = float.Parse(Console.ReadLine());
+        Console.WriteLine("ISR:");
+        admon.isr = float.Parse(Console.ReadLine());
+
+        // El objeto sabe cómo calcularse a sí mismo
+        float resultado = admon.CalcularNomina();
+        Console.WriteLine(admon.nombreTrabajador + " gana neto: " + resultado);
     }
 }</pre>
                             </div>
                         </div>
                     </div>
 
-                    <!-- TAB 4: AVANZADO -->
+                    <!-- TAB 4: HERENCIA Y POLIMORFISMO -->
                     <div id="tab4" class="tab-content">
-                        <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
-                            <div class="p-6 bg-indigo-900 text-white flex justify-between">
-                                <h3 class="font-bold">Ejercicio Final: Arquitectura Robusta</h3>
-                                <span class="text-xs bg-indigo-500 px-2 py-1 rounded">Unidad III - Buenas Prácticas</span>
+                        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                            <div class="p-6 bg-indigo-900 text-white flex justify-between items-center">
+                                <h3 class="font-bold text-sm uppercase">Código Completo: Arquitectura Final (Herencia)</h3>
+                                <span class="text-[10px] bg-indigo-500 px-2 py-1 rounded">OPTIMIZACIÓN</span>
                             </div>
                             <div class="p-8">
-                                <div class="mb-8 grid md:grid-cols-3 gap-4">
-                                    <div class="p-3 bg-slate-50 border rounded-lg text-[10px]">
-                                        <span class="font-bold block text-indigo-600">HERENCIA</span>
-                                        Uso de <code>: clsTrabajadores</code> para reducir redundancia.
-                                    </div>
-                                    <div class="p-3 bg-slate-50 border rounded-lg text-[10px]">
-                                        <span class="font-bold block text-indigo-600">ENCAPSULAMIENTO</span>
-                                        Uso de <code>private</code> y <code>Property (get/set)</code>.
-                                    </div>
-                                    <div class="p-3 bg-slate-50 border rounded-lg text-[10px]">
-                                        <span class="font-bold block text-indigo-600">POLIMORFISMO</span>
-                                        Método <code>abstract</code> que cambia según el tipo de clase.
-                                    </div>
-                                </div>
-                                <pre class="code-block bg-slate-900 p-6 rounded-xl text-indigo-300 code-font">
-// APLICACIÓN DE SOLID Y MODELADO AVANZADO
+                                <p class="text-[10px] text-slate-400 mb-4"><strong>Guía Temática:</strong> "Realizar la optimización por medio de herencia y polimorfismo". Código completo del sistema jerárquico.</p>
+                                
+                                <pre class="code-block p-6 rounded-xl text-indigo-300 code-font mb-6">
+// CLASE BASE (ABSTRACTA)
 internal abstract class clsTrabajadores {
-    public float isr;
     public string nombreTrabajador;
-    protected float sueldoNeto; // Encapsulamiento PROTECTED
-    
-    // Propiedad (Buenas Prácticas Unidad III)
-    public float SueldoNeto { get => sueldoNeto; set => sueldoNeto = value; }
-    
-    public abstract float CalcularNomina(); // Polimorfismo
+    public float isr;
+    public abstract float CalcularNomina(); 
 }
 
+// ESPECIALIZACIONES
 internal class clsAdministrativos : clsTrabajadores {
-    private float sueldoBase;
-    public float SueldoBase { get => sueldoBase; set => sueldoBase = value; }
+    public float SueldoBase;
+    public override float CalcularNomina() => SueldoBase - (SueldoBase * isr / 100);
+}
 
-    public override float CalcularNomina() {
-        sueldoNeto = SueldoBase - (SueldoBase * isr / 100);
-        return sueldoNeto;
+internal class clsProfesorAsignatura : clsTrabajadores {
+    public float PagoHora;
+    public int HorasT;
+    public override float CalcularNomina() => (PagoHora * HorasT) - isr;
+}
+
+internal class clsProfesorTiempoCompleto : clsTrabajadores {
+    public float PagoHora;
+    public override float CalcularNomina() => (PagoHora * 40) - isr;
+}</pre>
+
+                                <pre class="code-block p-6 rounded-xl text-white code-font">
+// PROGRAMA DE CONTROL (Switch Completo con Objetos)
+static void Main(string[] args) {
+    int op;
+    clsAdministrativos admon = new clsAdministrativos();
+    clsProfesorAsignatura PA = new clsProfesorAsignatura();
+    clsProfesorTiempoCompleto PTC = new clsProfesorTiempoCompleto();
+
+    Console.WriteLine("1. Administrativo\n2. Asignatura\n3. Tiempo Completo\nSeleccione:");
+    op = int.Parse(Console.ReadLine());
+
+    switch (op) {
+        case 1:
+            Console.WriteLine("Nombre:");
+            admon.nombreTrabajador = Console.ReadLine();
+            Console.WriteLine("Sueldo Base:");
+            admon.SueldoBase = float.Parse(Console.ReadLine());
+            admon.isr = float.Parse(Console.ReadLine());
+            Console.WriteLine(admon.nombreTrabajador + " Sueldo: " + admon.CalcularNomina());
+            break;
+        case 2:
+            Console.WriteLine("Nombre:");
+            PA.nombreTrabajador = Console.ReadLine();
+            Console.WriteLine("Pago Hora:");
+            PA.PagoHora = float.Parse(Console.ReadLine());
+            Console.WriteLine("Horas:");
+            PA.HorasT = int.Parse(Console.ReadLine());
+            PA.isr = float.Parse(Console.ReadLine());
+            Console.WriteLine(PA.nombreTrabajador + " Sueldo: " + PA.CalcularNomina());
+            break;
+        case 3:
+            Console.WriteLine("Nombre:");
+            PTC.nombreTrabajador = Console.ReadLine();
+            Console.WriteLine("Pago Hora:");
+            PTC.PagoHora = float.Parse(Console.ReadLine());
+            PTC.isr = float.Parse(Console.ReadLine());
+            Console.WriteLine(PTC.nombreTrabajador + " Sueldo: " + PTC.CalcularNomina());
+            break;
     }
 }</pre>
                             </div>
@@ -342,35 +376,26 @@ internal class clsAdministrativos : clsTrabajadores {
         </div>
     </section>
 
-    <footer class="bg-slate-900 text-slate-400 py-12 text-center border-t border-slate-800">
-        <p class="text-sm">Recurso Pedagógico para la materia de Programación Orientada a Objetos</p>
-        <p class="text-xs mt-2 uppercase tracking-widest">Maestría en Pedagogía • Ingeniería de Software</p>
+    <footer class="bg-slate-900 text-slate-500 py-10 text-center text-[10px] uppercase tracking-widest">
+        Documentación Técnica Pedagógica • Ingeniería de Software
     </footer>
 
     <script>
         function openTab(tabName) {
-            // Esconder contenidos
             var i, content, btns;
             content = document.getElementsByClassName("tab-content");
-            for (i = 0; i < content.length; i++) {
-                content[i].classList.remove("active");
-            }
+            for (i = 0; i < content.length; i++) content[i].classList.remove("active");
             
-            // Quitar estilos de botones
             btns = document.getElementsByClassName("tab-btn");
             for (i = 0; i < btns.length; i++) {
-                btns[i].classList.remove("bg-indigo-600", "text-white", "border-r-4");
-                btns[i].classList.add("bg-white", "text-gray-600");
+                btns[i].classList.remove("bg-indigo-600", "text-white", "shadow-lg", "border-r-4", "border-white");
+                btns[i].classList.add("bg-white", "text-slate-600");
             }
 
-            // Activar actual
             document.getElementById(tabName).classList.add("active");
-            
-            // Estilo botón activo (busca el id correspondiente al tab)
-            var btnId = "btn" + tabName.charAt(tabName.length - 1);
-            var activeBtn = document.getElementById(btnId);
-            activeBtn.classList.add("bg-indigo-600", "text-white", "border-r-4");
-            activeBtn.classList.remove("bg-white", "text-gray-600");
+            var currentBtn = document.getElementById("btn" + tabName.charAt(tabName.length - 1));
+            currentBtn.classList.add("bg-indigo-600", "text-white", "shadow-lg", "border-r-4", "border-white");
+            currentBtn.classList.remove("bg-white", "text-slate-600");
         }
     </script>
 </body>
