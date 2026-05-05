@@ -3,400 +3,559 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diplomado en POO: De la Estructura al Objeto</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>POO - Masterclass Completa UTHH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Poppins:wght@300;400;600;700&display=swap');
-        
         :root {
-            --primary: #6366f1;
-            --dark: #0f172a;
+            --primary: #0f172a;
+            --accent: #3b82f6;
+            --success: #10b981;
+            --code-bg: #1e1e2e;
+            --text-dark: #1e293b;
+            --text-light: #f8fafc;
         }
 
-        body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
-        .code-font { font-family: 'Fira Code', monospace; font-size: 0.78rem; }
-        
-        .uml-box { border: 2px solid #334155; border-radius: 8px; background: #f8fafc; min-width: 200px; }
-        .uml-header { background: #334155; color: white; padding: 8px; text-align: center; font-weight: bold; font-size: 0.8rem; }
-        .uml-body { padding: 10px; font-size: 0.75rem; color: #1e293b; }
-        
-        .sticky-menu { position: sticky; top: 80px; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
+        * { box-sizing: border-box; }
+        body { 
+            margin: 0; 
+            font-family: 'Inter', sans-serif; 
+            background: #f1f5f9; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            gap: 50px;
+            padding: 40px 0;
+        }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .slide {
+            width: 1200px;
+            min-height: 675px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
 
-        pre { position: relative; max-height: 600px; overflow-y: auto; background: #0f172a !important; }
+        .slide::after {
+            content: "UTHH - Ingeniería en Desarrollo de Software";
+            position: absolute;
+            bottom: 20px;
+            right: 40px;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        h1 { font-size: 60px; color: var(--primary); margin: 0; }
+        h2 { font-size: 36px; color: var(--accent); border-left: 5px solid var(--accent); padding-left: 20px; margin-bottom: 30px; }
+        h3 { font-size: 24px; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
         
-        /* Custom scrollbar for code */
-        pre::-webkit-scrollbar { width: 8px; }
-        pre::-webkit-scrollbar-track { background: #1e293b; }
-        pre::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        p, li { font-size: 18px; line-height: 1.6; color: #475569; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 20px; }
+        
+        /* Code Styling */
+        .code-container {
+            background: var(--code-bg);
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            color: #cdd6f4;
+            line-height: 1.5;
+            position: relative;
+            border: 1px solid #313244;
+        }
+
+        .code-keyword { color: #c678dd; }
+        .code-class { color: #e5c07b; }
+        .code-method { color: #61afef; }
+        .code-comment { color: #7f849c; font-style: italic; }
+        .code-string { color: #98c379; }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .badge-conceptual { background: #dcfce7; color: #166534; }
+        .badge-actuacional { background: #dbeafe; color: #1e40af; }
+
+        .example-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        img { width: 100%; border-radius: 8px; object-fit: cover; }
+        
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th { background: var(--primary); color: white; padding: 15px; text-align: left; }
+        td { padding: 15px; border-bottom: 1px solid #e2e8f0; }
     </style>
 </head>
-<body class="bg-gray-50 text-slate-900">
+<body>
 
-    <!-- Navegación -->
-    <nav class="bg-indigo-700 text-white p-4 shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <i class="fas fa-university text-2xl"></i>
-                <span class="font-bold text-xl tracking-tight">POO <span class="text-indigo-200">PEDAGOGÍA</span></span>
-            </div>
-            <div class="hidden md:flex gap-8 font-medium text-sm">
-                <a href="#uml" class="hover:text-indigo-200 transition uppercase tracking-widest">Modelado</a>
-                <a href="#ejercicios" class="hover:text-indigo-200 transition uppercase tracking-widest">Ejercicios</a>
-            </div>
+<!-- SLIDE 1: PORTADA -->
+<div class="slide">
+    <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+        <img src="https://www.uthh.edu.mx/images/logo_uthh.png" alt="Logo UTHH" style="width: 200px; margin-bottom: 40px;">
+        <h1>Programación Orientada a Objetos</h1>
+        <p style="font-size: 24px; max-width: 800px; margin-top: 20px;">
+            Dimensión Conceptual y Actuacional del Paradigma Dominante en la Ingeniería de Software Contemporánea
+        </p>
+        <div style="margin-top: 60px; padding: 20px; border-top: 2px solid #e2e8f0;">
+            <p><strong>Presenta:</strong> Ing. Gadiel Ramos Hernández</p>
+            <p>Catedrático de la Universidad Tecnológica de la Huasteca Hidalguense</p>
         </div>
-    </nav>
+    </div>
+</div>
 
-    <!-- Header -->
-    <header class="bg-indigo-600 text-white py-12">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-4xl font-extrabold mb-4">Guía Técnica Completa de POO</h1>
-            <p class="text-indigo-100 max-w-2xl mx-auto">Análisis de la transición de paradigmas mediante el sistema de gestión de nómina.</p>
+<!-- SLIDE 2: COMPETENCIAS -->
+<div class="slide">
+    <h2>Competencias y Objetivos</h2>
+    <div class="grid">
+        <div class="example-box">
+            <span class="badge badge-conceptual">Saber (Conceptual)</span>
+            <ul>
+                <li>Identificar el concepto de paradigma POO.</li>
+                <li>Comprender características clave: <strong>Clases, Objetos, Atributos, Métodos</strong>.</li>
+                <li>Analizar los pilares: <strong>Abstracción, Encapsulamiento, Herencia y Polimorfismo</strong>.</li>
+                <li>Entender el rol del <strong>Constructor e Instancia</strong>.</li>
+            </ul>
         </div>
-    </header>
-
-    <!-- Sección UML -->
-    <section id="uml" class="container mx-auto py-16 px-4">
-        <div class="text-center mb-10">
-            <h2 class="text-3xl font-bold">Modelado de Clases (Estándar UML)</h2>
-            <p class="text-slate-500">Reflejo de la Unidad I: "Construir diagramas del lenguaje de modelado unificado"</p>
+        <div class="example-box">
+            <span class="badge badge-actuacional">Saber Hacer (Actuacional)</span>
+            <ul>
+                <li>Interpretar entidades del mundo real como objetos de software.</li>
+                <li>Determinar requerimientos de atributos y comportamientos.</li>
+                <li>Construir estructuras jerárquicas mediante herencia.</li>
+                <li>Implementar soluciones polimórficas eficientes.</li>
+            </ul>
         </div>
-        <div class="bg-white p-10 rounded-3xl shadow-xl border flex flex-col items-center">
-            <div class="flex flex-col items-center gap-8">
-                <!-- Base -->
-                <div class="uml-box shadow-md w-64 border-indigo-400">
-                    <div class="uml-header bg-indigo-600">«Abstract»<br>clsTrabajadores</div>
-                    <div class="uml-body text-left">
-                        + isr: float<br>
-                        + nombreTrabajador: string<br>
-                        # sueldoNeto: float
-                    </div>
-                    <div class="uml-body border-t italic font-semibold">+ CalcularNomina(): float</div>
-                </div>
+    </div>
+</div>
 
-                <div class="h-8 w-0.5 bg-slate-300 relative">
-                    <div class="absolute -bottom-1 -left-1.5 border-l-8 border-r-8 border-b-8 border-transparent border-b-slate-300"></div>
-                </div>
-
-                <!-- Derivadas -->
-                <div class="flex flex-wrap justify-center gap-6">
-                    <div class="uml-box w-52">
-                        <div class="uml-header bg-slate-700">clsAdministrativos</div>
-                        <div class="uml-body text-left">- sueldoBase: float</div>
-                        <div class="uml-body border-t font-bold">+ CalcularNomina()</div>
-                    </div>
-                    <div class="uml-box w-52">
-                        <div class="uml-header bg-slate-700">clsProfesorAsignatura</div>
-                        <div class="uml-body text-left">
-                            - horasT: int<br>
-                            - pagoHora: float
-                        </div>
-                        <div class="uml-body border-t font-bold">+ CalcularNomina()</div>
-                    </div>
-                    <div class="uml-box w-52">
-                        <div class="uml-header bg-slate-700">clsProfesorTiempoCompleto</div>
-                        <div class="uml-body text-left">
-                            - pagoHora: float<br>
-                            - sueldoBruto: float
-                        </div>
-                        <div class="uml-body border-t font-bold">+ CalcularNomina()</div>
-                    </div>
-                </div>
+<!-- SLIDE 3: EVOLUCIÓN TÉCNICA -->
+<div class="slide">
+    <h2>Contexto: Evolución del Software</h2>
+    <p>El desarrollo de software ha pasado por tres grandes etapas de abstracción:</p>
+    <div class="grid">
+        <div>
+            <h3>1. Lenguaje Máquina y Bajo Nivel</h3>
+            <p>Programación basada en binario y Ensamblador. Control directo del hardware pero extremadamente difícil de mantener.</p>
+            <div class="code-container">
+                <span class="code-comment">; Ejemplo Ensamblador x86</span><br>
+                MOV AX, 5<br>
+                ADD AX, 10<br>
+                INT 21h
             </div>
         </div>
-    </section>
-
-    <!-- Ejercicios -->
-    <section id="ejercicios" class="bg-slate-100 py-16 px-4">
-        <div class="container mx-auto">
-            <div class="flex flex-col lg:flex-row gap-8">
-                <!-- Sidebar -->
-                <div class="lg:w-1/4">
-                    <div class="sticky-menu space-y-3">
-                        <button onclick="openTab('tab1')" class="tab-btn active w-full text-left p-4 rounded-xl font-bold text-xs bg-indigo-600 text-white shadow-lg border-r-4 border-white" id="btn1">
-                            1. PARADIGMA ESTRUCTURADO
-                        </button>
-                        <button onclick="openTab('tab2')" class="tab-btn w-full text-left p-4 rounded-xl font-bold text-xs bg-white text-slate-600 shadow transition hover:bg-indigo-50" id="btn2">
-                            2. INTRODUCCIÓN A CLASES
-                        </button>
-                        <button onclick="openTab('tab3')" class="tab-btn w-full text-left p-4 rounded-xl font-bold text-xs bg-white text-slate-600 shadow transition hover:bg-indigo-50" id="btn3">
-                            3. ATRIBUTOS Y ABSTRACCIÓN
-                        </button>
-                        <button onclick="openTab('tab4')" class="tab-btn w-full text-left p-4 rounded-xl font-bold text-xs bg-white text-slate-600 shadow transition hover:bg-indigo-50" id="btn4">
-                            4. HERENCIA Y POLIMORFISMO
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Contenido -->
-                <div class="lg:w-3/4">
-                    
-                    <!-- TAB 1: ESTRUCTURADO -->
-                    <div id="tab1" class="tab-content active">
-                        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-                            <div class="p-6 bg-slate-800 text-white flex justify-between items-center">
-                                <h3 class="font-bold text-sm uppercase">Código Completo: Lógica Secuencial</h3>
-                                <span class="text-[10px] bg-orange-500 px-2 py-1 rounded">SIN CLASES</span>
-                            </div>
-                            <div class="p-8">
-                                <p class="text-xs text-slate-500 mb-4"><strong>Concepto:</strong> Programación basada en el flujo de ejecución directo. Se observa el uso de métodos estáticos que actúan como "subrutinas".</p>
-                                <pre class="code-block p-6 rounded-xl text-indigo-300 code-font">
-internal class Program {
-    static void Main(string[] args) {
-        string nombreTrabajador;
-        int opcion;
-        float sueldoBase, isr, sueldoBruto = 0, pagoHora;
-        int horasT;
-
-        Console.WriteLine("1. Administrativo");
-        Console.WriteLine("2. Profesor de asignatura");
-        Console.WriteLine("3. Profesor de Tiempo Completo");
-        Console.WriteLine("Seleccione el tipo de empleado a calcular su nómina");
-        opcion = int.Parse(Console.ReadLine());
-
-        Console.WriteLine("Nombre del trabajador:");
-        nombreTrabajador = Console.ReadLine();
-
-        switch (opcion) {
-            case 1:
-                Console.WriteLine("Ingresa su sueldo base:");
-                sueldoBase = float.Parse(Console.ReadLine());
-                Console.WriteLine("Ingresa el impuesto sobre la renta (ISR):");
-                isr = float.Parse(Console.ReadLine());
-                sueldoBruto = CalcularNominaAdmon(sueldoBase, isr);
-                break;
-            case 2:
-                Console.WriteLine("Ingresa las horas trabajadas:");
-                pagoHora = float.Parse(Console.ReadLine());
-                Console.WriteLine("Ingresa el pago por hora:");
-                horasT = int.Parse(Console.ReadLine());
-                Console.WriteLine("Ingresa el impuesto sobre la renta (ISR):");
-                isr = float.Parse(Console.ReadLine());
-                sueldoBruto = CalcularNominaAsignatura(pagoHora, horasT, isr);
-                break;
-            case 3:
-                Console.WriteLine("Ingresa el pago por hora:");
-                pagoHora = float.Parse(Console.ReadLine());
-                Console.WriteLine("Ingresa el impuesto sobre la renta (ISR):");
-                isr = float.Parse(Console.ReadLine());
-                sueldoBruto = CalcularNominaCompleto(pagoHora, isr);
-                break;
-        }
-
-        Console.WriteLine(nombreTrabajador + " Tu sueldo es: " + sueldoBruto);
-        Console.ReadKey();
-    }
-
-    // MÉTODOS ESTÁTICOS (Lógica desconectada de los datos)
-    static float CalcularNominaAdmon(float sueldoBase, float isr) {
-        return sueldoBase - (sueldoBase * isr / 100);
-    }
-
-    static float CalcularNominaAsignatura(float pagoHora, int horasT, float isr) {
-        return (pagoHora * horasT) - isr;
-    }
-
-    static float CalcularNominaCompleto(float pagoHora, float isr) {
-        return (pagoHora * 40) - isr;
-    }
-}</pre>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- TAB 2: TRÁNSITO A CLASES -->
-                    <div id="tab2" class="tab-content">
-                        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-                            <div class="p-6 bg-slate-800 text-white flex justify-between items-center">
-                                <h3 class="font-bold text-sm uppercase">Código Completo: Transición a Clases</h3>
-                                <span class="text-[10px] bg-blue-500 px-2 py-1 rounded">INSTANCIACIÓN</span>
-                            </div>
-                            <div class="p-8">
-                                <p class="text-xs text-slate-500 mb-4"><strong>Saber Hacer:</strong> "Construir objetos a partir de una clase". Aquí se separan las responsabilidades en una clase externa.</p>
-                                <pre class="code-block p-6 rounded-xl text-indigo-300 code-font">
-// DEFINICIÓN DE LA CLASE
-internal class clsAdministrativos {
-    // Método de clase
-    public float CalcularNominaAdmon(float sueldoBase, float isr) {
-        return sueldoBase - (sueldoBase * isr / 100);
-    }
-}
-
-// PROGRAMA PRINCIPAL
-internal class Program {
-    static void Main(string[] args) {
-        float sb, i, res;
-        Console.WriteLine("Sueldo Base:");
-        sb = float.Parse(Console.ReadLine());
-        Console.WriteLine("ISR:");
-        i = float.Parse(Console.ReadLine());
-
-        // PASO CRÍTICO: Instanciación del objeto
-        clsAdministrativos admon = new clsAdministrativos();
-        
-        // Uso del objeto para realizar el cálculo
-        res = admon.CalcularNominaAdmon(sb, i);
-        
-        Console.WriteLine("Resultado: " + res);
-    }
-}</pre>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- TAB 3: ABSTRACCIÓN -->
-                    <div id="tab3" class="tab-content">
-                        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-                            <div class="p-6 bg-slate-800 text-white flex justify-between items-center">
-                                <h3 class="font-bold text-sm uppercase">Código Completo: Abstracción de Atributos</h3>
-                                <span class="text-[10px] bg-green-500 px-2 py-1 rounded">ESTADO Y COMPORTAMIENTO</span>
-                            </div>
-                            <div class="p-8">
-                                <p class="text-xs text-slate-500 mb-4"><strong>Concepto:</strong> El objeto ahora mantiene su propio <strong>Estado</strong> (Atributos) y no requiere pasar datos por parámetros en sus métodos.</p>
-                                <pre class="code-block p-6 rounded-xl text-indigo-300 code-font">
-internal class clsAdministrativos {
-    // ATRIBUTOS (Estado)
-    public string nombreTrabajador;
-    public float isr;
-    public float sueldoBase;
-    public float sueldoNeto;
-
-    // MÉTODO (Comportamiento que usa el estado interno)
-    public float CalcularNomina() {
-        sueldoNeto = sueldoBase - (sueldoBase * isr / 100);
-        return sueldoNeto;
-    }
-}
-
-internal class Program {
-    static void Main(string[] args) {
-        clsAdministrativos admon = new clsAdministrativos();
-        
-        Console.WriteLine("Nombre:");
-        admon.nombreTrabajador = Console.ReadLine();
-        Console.WriteLine("Sueldo Base:");
-        admon.sueldoBase = float.Parse(Console.ReadLine());
-        Console.WriteLine("ISR:");
-        admon.isr = float.Parse(Console.ReadLine());
-
-        // El objeto sabe cómo calcularse a sí mismo
-        float resultado = admon.CalcularNomina();
-        Console.WriteLine(admon.nombreTrabajador + " gana neto: " + resultado);
-    }
-}</pre>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- TAB 4: HERENCIA Y POLIMORFISMO -->
-                    <div id="tab4" class="tab-content">
-                        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-                            <div class="p-6 bg-indigo-900 text-white flex justify-between items-center">
-                                <h3 class="font-bold text-sm uppercase">Código Completo: Arquitectura Final (Herencia)</h3>
-                                <span class="text-[10px] bg-indigo-500 px-2 py-1 rounded">OPTIMIZACIÓN</span>
-                            </div>
-                            <div class="p-8">
-                                <p class="text-[10px] text-slate-400 mb-4"><strong>Guía Temática:</strong> "Realizar la optimización por medio de herencia y polimorfismo". Código completo del sistema jerárquico.</p>
-                                
-                                <pre class="code-block p-6 rounded-xl text-indigo-300 code-font mb-6">
-// CLASE BASE (ABSTRACTA)
-internal abstract class clsTrabajadores {
-    public string nombreTrabajador;
-    public float isr;
-    public abstract float CalcularNomina(); 
-}
-
-// ESPECIALIZACIONES
-internal class clsAdministrativos : clsTrabajadores {
-    public float SueldoBase;
-    public override float CalcularNomina() => SueldoBase - (SueldoBase * isr / 100);
-}
-
-internal class clsProfesorAsignatura : clsTrabajadores {
-    public float PagoHora;
-    public int HorasT;
-    public override float CalcularNomina() => (PagoHora * HorasT) - isr;
-}
-
-internal class clsProfesorTiempoCompleto : clsTrabajadores {
-    public float PagoHora;
-    public override float CalcularNomina() => (PagoHora * 40) - isr;
-}</pre>
-
-                                <pre class="code-block p-6 rounded-xl text-white code-font">
-// PROGRAMA DE CONTROL (Switch Completo con Objetos)
-static void Main(string[] args) {
-    int op;
-    clsAdministrativos admon = new clsAdministrativos();
-    clsProfesorAsignatura PA = new clsProfesorAsignatura();
-    clsProfesorTiempoCompleto PTC = new clsProfesorTiempoCompleto();
-
-    Console.WriteLine("1. Administrativo\n2. Asignatura\n3. Tiempo Completo\nSeleccione:");
-    op = int.Parse(Console.ReadLine());
-
-    switch (op) {
-        case 1:
-            Console.WriteLine("Nombre:");
-            admon.nombreTrabajador = Console.ReadLine();
-            Console.WriteLine("Sueldo Base:");
-            admon.SueldoBase = float.Parse(Console.ReadLine());
-            admon.isr = float.Parse(Console.ReadLine());
-            Console.WriteLine(admon.nombreTrabajador + " Sueldo: " + admon.CalcularNomina());
-            break;
-        case 2:
-            Console.WriteLine("Nombre:");
-            PA.nombreTrabajador = Console.ReadLine();
-            Console.WriteLine("Pago Hora:");
-            PA.PagoHora = float.Parse(Console.ReadLine());
-            Console.WriteLine("Horas:");
-            PA.HorasT = int.Parse(Console.ReadLine());
-            PA.isr = float.Parse(Console.ReadLine());
-            Console.WriteLine(PA.nombreTrabajador + " Sueldo: " + PA.CalcularNomina());
-            break;
-        case 3:
-            Console.WriteLine("Nombre:");
-            PTC.nombreTrabajador = Console.ReadLine();
-            Console.WriteLine("Pago Hora:");
-            PTC.PagoHora = float.Parse(Console.ReadLine());
-            PTC.isr = float.Parse(Console.ReadLine());
-            Console.WriteLine(PTC.nombreTrabajador + " Sueldo: " + PTC.CalcularNomina());
-            break;
-    }
-}</pre>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+        <div>
+            <h3>2. Lenguaje de Alto Nivel (Estructurado)</h3>
+            <p>Basado en algoritmos y procedimientos secuenciales. Las funciones y los datos están separados.</p>
+            <div class="code-container">
+                <span class="code-comment">// Ejemplo C# Estructurado</span><br>
+                <span class="code-keyword">static void</span> <span class="code-method">Calcular</span>(<span class="code-keyword">float</span> n1, <span class="code-keyword">float</span> n2) {<br>
+                &nbsp;&nbsp;<span class="code-keyword">float</span> r = n1 + n2;<br>
+                &nbsp;&nbsp;Console.WriteLine(r);<br>
+                }
             </div>
         </div>
-    </section>
+    </div>
+    <div class="example-box" style="margin-top: 30px; border-left: 5px solid var(--success);">
+        <p><strong>La POO</strong> surge como respuesta a la complejidad, permitiendo que el programador piense en "entidades" y no solo en líneas de ejecución.</p>
+    </div>
+</div>
 
-    <footer class="bg-slate-900 text-slate-500 py-10 text-center text-[10px] uppercase tracking-widest">
-        Documentación Técnica Pedagógica • Ingeniería de Software
-    </footer>
+<!-- SLIDE 4: COMPARATIVA DE PARADIGMAS -->
+<div class="slide">
+    <h2>Paradigmas Actuales</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Paradigma</th>
+                <th>Enfoque Principal</th>
+                <th>Popularidad</th>
+                <th>Lenguajes Referentes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Estructurada</strong></td>
+                <td>Lógica procedimental</td>
+                <td>Media</td>
+                <td>C, Pascal, COBOL</td>
+            </tr>
+            <tr>
+                <td><strong>Orientada a Objetos</strong></td>
+                <td>Datos y Entidades</td>
+                <td><strong>Muy Alta</strong></td>
+                <td>Java, C#, C++, Python</td>
+            </tr>
+            <tr>
+                <td><strong>Funcional</strong></td>
+                <td>Funciones matemáticas</td>
+                <td>Alta (Creciente)</td>
+                <td>Scala, Haskell, Erlang</td>
+            </tr>
+            <tr>
+                <td><strong>Lógica</strong></td>
+                <td>Hechos y Reglas</td>
+                <td>Baja (IA)</td>
+                <td>Prolog, Mercury</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-    <script>
-        function openTab(tabName) {
-            var i, content, btns;
-            content = document.getElementsByClassName("tab-content");
-            for (i = 0; i < content.length; i++) content[i].classList.remove("active");
+<!-- SLIDE 5: DEFINICIÓN DE POO -->
+<div class="slide">
+    <h2>¿Qué es la POO?</h2>
+    <div class="grid">
+        <div>
+            <p>Es un modelo de programación en el que el diseño de software se organiza en torno a <strong>datos</strong> u <strong>objetos</strong>, en lugar de funciones y lógica.</p>
+            <p>Un objeto se define como un campo de datos que tiene atributos y comportamiento únicos.</p>
+            <div class="example-box" style="margin-top: 20px;">
+                <h3><i class="fa-solid fa-cube"></i> Un Objeto posee:</h3>
+                <ul>
+                    <li><strong>Estado:</strong> Los datos que almacena (Atributos).</li>
+                    <li><strong>Comportamiento:</strong> Las acciones que puede realizar (Métodos).</li>
+                    <li><strong>Identidad:</strong> Lo que lo hace único en memoria.</li>
+                </ul>
+            </div>
+        </div>
+        <div>
             
-            btns = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < btns.length; i++) {
-                btns[i].classList.remove("bg-indigo-600", "text-white", "shadow-lg", "border-r-4", "border-white");
-                btns[i].classList.add("bg-white", "text-slate-600");
-            }
+            <p style="font-style: italic; font-size: 14px; text-align: center; margin-top: 10px;">
+                Representación visual de la encapsulación: Datos + Lógica en una sola unidad.
+            </p>
+        </div>
+    </div>
+</div>
 
-            document.getElementById(tabName).classList.add("active");
-            var currentBtn = document.getElementById("btn" + tabName.charAt(tabName.length - 1));
-            currentBtn.classList.add("bg-indigo-600", "text-white", "shadow-lg", "border-r-4", "border-white");
-            currentBtn.classList.remove("bg-white", "text-slate-600");
-        }
-    </script>
+<!-- SLIDE 6: CLASE VS OBJETO -->
+<div class="slide">
+    <h2>La Clase: El Molde de Creación</h2>
+    <div class="grid">
+        <div>
+            <h3>La Clase (El Plano)</h3>
+            <p>Es una plantilla abstracta. Define qué atributos y métodos tendrán los objetos creados a partir de ella, pero no ocupa espacio real de datos.</p>
+            <div class="code-container">
+                <span class="code-keyword">class</span> <span class="code-class">Carro</span> {<br>
+                &nbsp;&nbsp;<span class="code-keyword">public string</span> color;<br>
+                &nbsp;&nbsp;<span class="code-keyword">public int</span> velocidades;<br><br>
+                &nbsp;&nbsp;<span class="code-keyword">public void</span> <span class="code-method">Acelerar</span>() {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;Console.WriteLine(<span class="code-string">"Avanzando..."</span>);<br>
+                &nbsp;&nbsp;}<br>
+                }
+            </div>
+        </div>
+        <div>
+            <h3>El Objeto (La Instancia)</h3>
+            <p>Es la entidad física en memoria. Se crea mediante la <strong>Instanciación</strong> usando un <strong>Constructor</strong>.</p>
+            <div class="code-container">
+                <span class="code-comment">// Instanciación</span><br>
+                <span class="code-class">Carro</span> miCoche = <span class="code-keyword">new</span> <span class="code-class">Carro</span>();<br><br>
+                <span class="code-comment">// Asignación de estado</span><br>
+                miCoche.color = <span class="code-string">"Rojo"</span>;<br>
+                miCoche.velocidades = 6;<br><br>
+                <span class="code-comment">// Ejecución de comportamiento</span><br>
+                miCoche.<span class="code-method">Acelerar</span>();
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 7: EJEMPLO 1 - EL ELEFANTE -->
+<div class="slide">
+    <h2>Ejemplo 1: Entidad Biológica (Elefante)</h2>
+    <div class="grid">
+        <div class="example-box">
+            <h3>Atributos (Datos)</h3>
+            <ul>
+                <li><strong>Nombre:</strong> "Dumbo"</li>
+                <li><strong>Especie:</strong> "Africano"</li>
+                <li><strong>Altura:</strong> 2.50 metros</li>
+                <li><strong>Color:</strong> Gris</li>
+            </ul>
+            <h3>Métodos (Acciones)</h3>
+            <ul>
+                <li><strong>Comer()</strong></li>
+                <li><strong>Caminar()</strong></li>
+                <li><strong>Dormir()</strong></li>
+            </ul>
+        </div>
+        <div>
+            <div class="code-container">
+                <span class="code-keyword">class</span> <span class="code-class">Elefante</span> {<br>
+                &nbsp;&nbsp;<span class="code-keyword">string</span> nombre = <span class="code-string">"Dumbo"</span>;<br>
+                &nbsp;&nbsp;<span class="code-keyword">float</span> altura = 2.5f;<br><br>
+                &nbsp;&nbsp;<span class="code-keyword">void</span> <span class="code-method">Comer</span>() {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// Lógica para alimentarse</span><br>
+                &nbsp;&nbsp;}<br>
+                }<br><br>
+                <span class="code-class">Elefante</span> e = <span class="code-keyword">new</span> <span class="code-class">Elefante</span>();
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 8: EJEMPLO 2 - LA CASA -->
+<div class="slide">
+    <h2>Ejemplo 2: Entidad Arquitectónica (Casa)</h2>
+    <p>Modelado de una vivienda como objeto de software:</p>
+    <div class="grid">
+        <div>
+            <div class="example-box">
+                <p><strong>Atributos:</strong> Ancho, Largo, Alto, Habitaciones, Ventanas, Puertas, Color, Cochera.</p>
+                <p><strong>Métodos:</strong> AbrirPuerta(), CerrarPuerta(), EncenderLuces(), ActivarAlarma().</p>
+            </div>
+            
+        </div>
+        <div class="code-container">
+            <span class="code-keyword">class</span> <span class="code-class">Casa</span> {<br>
+            &nbsp;&nbsp;<span class="code-keyword">int</span> numHabitaciones = 3;<br>
+            &nbsp;&nbsp;<span class="code-keyword">bool</span> alarmaActiva = <span class="code-keyword">false</span>;<br><br>
+            &nbsp;&nbsp;<span class="code-keyword">public void</span> <span class="code-method">ActivarAlarma</span>() {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;alarmaActiva = <span class="code-keyword">true</span>;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;Console.WriteLine(<span class="code-string">"Sistema Seguro"</span>);<br>
+            &nbsp;&nbsp;}<br><br>
+            &nbsp;&nbsp;<span class="code-keyword">public void</span> <span class="code-method">AbrirPuerta</span>() {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// Código para accionar cerrojo</span><br>
+            &nbsp;&nbsp;}<br>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 9: EJEMPLO 3 - EL CELULAR -->
+<div class="slide">
+    <h2>Ejemplo 3: Tecnología (Smartphone)</h2>
+    <div class="grid">
+        <div class="code-container">
+            <span class="code-comment">// Representación de un iPhone 15 Pro</span><br>
+            <span class="code-keyword">class</span> <span class="code-class">Celular</span> {<br>
+            &nbsp;&nbsp;<span class="code-keyword">string</span> modelo = <span class="code-string">"iPhone 15 Pro"</span>;<br>
+            &nbsp;&nbsp;<span class="code-keyword">string</span> color = <span class="code-string">"Gris Arena"</span>;<br>
+            &nbsp;&nbsp;<span class="code-keyword">int</span> almacenamiento = 256;<br><br>
+            &nbsp;&nbsp;<span class="code-keyword">void</span> <span class="code-method">TomarFoto</span>() { <span class="code-comment">/* Activar cámara */</span> }<br>
+            &nbsp;&nbsp;<span class="code-keyword">void</span> <span class="code-method">Llamar</span>() { <span class="code-comment">/* Iniciar señal */</span> }<br>
+            }<br><br>
+            <span class="code-class">Celular</span> miTel = <span class="code-keyword">new</span> <span class="code-class">Celular</span>();
+        </div>
+        <div>
+            <div class="example-box">
+                <h3>Objetos vs Clase</h3>
+                <p>De la clase <strong>Celular</strong> podemos crear:</p>
+                <ul>
+                    <li>Objeto 1: iPhone 15 Pro, Gris, 256GB.</li>
+                    <li>Objeto 2: iPhone 14 Pro, Beige, 512GB.</li>
+                </ul>
+                <p>Ambos comparten el "molde" (pueden llamar, tomar fotos), pero su "estado" (color, memoria) es diferente.</p>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 10: EJEMPLO 4 - LA PERSONA -->
+<div class="slide">
+    <h2>Ejemplo 4: Modelado Humano (Persona)</h2>
+    <div class="grid">
+        <div>
+            <div class="example-box">
+                <h3>Atributos (Datos)</h3>
+                <p>Nombre, Estatura, Sexo, Edad, Color de ojos, Talla.</p>
+                <h3>Métodos (Acciones)</h3>
+                <p>Caminar(), Hablar(), Comer(), Jugar(), Pensar(), Reír().</p>
+            </div>
+            <div style="margin-top: 20px;">
+                <p><strong>Instanciación:</strong></p>
+                <p><code>Persona juan = new Persona("Juan", 27);</code></p>
+                <p><code>Persona lourdes = new Persona("Lourdes", 23);</code></p>
+            </div>
+        </div>
+        <div class="code-container">
+            <span class="code-keyword">class</span> <span class="code-class">Persona</span> {<br>
+            &nbsp;&nbsp;<span class="code-keyword">public string</span> nombre;<br>
+            &nbsp;&nbsp;<span class="code-keyword">public int</span> edad;<br><br>
+            &nbsp;&nbsp;<span class="code-comment">// Constructor</span><br>
+            &nbsp;&nbsp;<span class="code-keyword">public</span> <span class="code-class">Persona</span>(<span class="code-keyword">string</span> n, <span class="code-keyword">int</span> e) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;nombre = n;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;edad = e;<br>
+            &nbsp;&nbsp;}<br><br>
+            &nbsp;&nbsp;<span class="code-keyword">public void</span> <span class="code-method">Hablar</span>() {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;Console.WriteLine(<span class="code-string">"Hola, soy "</span> + nombre);<br>
+            &nbsp;&nbsp;}<br>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 11: EJEMPLO 5 - NÓMINA UTHH -->
+<div class="slide">
+    <h2>Ejemplo 5: Sistema de Nómina UTHH</h2>
+    <p>Caso real de aplicación en la Universidad Tecnológica de la Huasteca Hidalguense.</p>
+    <div class="grid">
+        <div class="code-container">
+            <span class="code-keyword">class</span> <span class="code-class">ProfesorTC</span> {<br>
+            &nbsp;&nbsp;<span class="code-keyword">string</span> nombre = <span class="code-string">"Juan Perez"</span>;<br>
+            &nbsp;&nbsp;<span class="code-keyword">double</span> sueldoBase = 6000.00;<br>
+            &nbsp;&nbsp;<span class="code-keyword">double</span> apoyoDidactico = 800.00;<br>
+            &nbsp;&nbsp;<span class="code-keyword">double</span> isr = 960.00;<br><br>
+            &nbsp;&nbsp;<span class="code-keyword">public void</span> <span class="code-method">CalcularNomina</span>() {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">double</span> neto = (sueldoBase + apoyoDidactico) - isr;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;Console.WriteLine(<span class="code-string">"Pago: "</span> + neto);<br>
+            &nbsp;&nbsp;}<br>
+            }
+        </div>
+        <div class="example-box">
+            <h3>Análisis del Objeto Nómina</h3>
+            <p><strong>Estado:</strong> Contiene las variables financieras del docente.</p>
+            <p><strong>Comportamiento:</strong> El método <code>CalcularNomina()</code> procesa los datos internos para generar un resultado.</p>
+            <p><strong>Instancias Diferentes:</strong><br>
+            - Juan: Pago $5,840.00<br>
+            - Karen: Pago $5,540.00 (Atributos distintos)</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 12: LOS 4 PILARES -->
+<div class="slide" style="background: var(--primary); color: white;">
+    <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <h1 style="color: white; border-bottom: 4px solid var(--accent); padding-bottom: 20px;">Pilares de la POO</h1>
+        <div class="grid" style="margin-top: 50px; width: 100%;">
+            <div class="example-box" style="color: var(--primary);"><h3>1. Abstracción</h3></div>
+            <div class="example-box" style="color: var(--primary);"><h3>2. Encapsulamiento</h3></div>
+            <div class="example-box" style="color: var(--primary);"><h3>3. Herencia</h3></div>
+            <div class="example-box" style="color: var(--primary);"><h3>4. Polimorfismo</h3></div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 13: PILAR 1 - ABSTRACCIÓN -->
+<div class="slide">
+    <h2>1. Abstracción</h2>
+    <div class="grid">
+        <div>
+            <p>Es la capacidad de enfocarse en las características esenciales de un objeto, <strong>ignorando los detalles complejos de implementación</strong> que no son relevantes para el usuario.</p>
+            <div class="example-box" style="margin-top: 20px;">
+                <p><strong>Analogía del Coche:</strong> Un conductor solo necesita conocer la interfaz (volante, pedales). No necesita saber cómo la inyección electrónica dosifica el combustible.</p>
+            </div>
+        </div>
+        <div>
+            <h3>Aplicación en Software</h3>
+            <p>En el sistema de nómina de la UTHH, un usuario solo ingresa datos. La complejidad matemática del cálculo de impuestos está <strong>abstraída</strong> dentro de la clase.</p>
+            
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 14: PILAR 2 - ENCAPSULAMIENTO -->
+<div class="slide">
+    <h2>2. Encapsulamiento</h2>
+    <div class="grid">
+        <div>
+            <p>Es el mecanismo que <strong>oculta los datos</strong> internos de un objeto, protegiéndolos de accesos externos no autorizados.</p>
+            <p>Se logra mediante modificadores de acceso:</p>
+            <ul>
+                <li><strong>Public:</strong> Accesible desde cualquier lugar.</li>
+                <li><strong>Private:</strong> Solo accesible dentro de la clase.</li>
+                <li><strong>Protected:</strong> Accesible por la clase y sus herederas.</li>
+            </ul>
+        </div>
+        <div class="code-container">
+            <span class="code-keyword">class</span> <span class="code-class">CuentaBancaria</span> {<br>
+            &nbsp;&nbsp;<span class="code-keyword">private double</span> saldo; <span class="code-comment">// Oculto</span><br><br>
+            &nbsp;&nbsp;<span class="code-keyword">public void</span> <span class="code-method">Depositar</span>(<span class="code-keyword">double</span> monto) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span>(monto > 0) saldo += monto;<br>
+            &nbsp;&nbsp;}<br><br>
+            &nbsp;&nbsp;<span class="code-keyword">public double</span> <span class="code-method">VerSaldo</span>() {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> saldo;<br>
+            &nbsp;&nbsp;}<br>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 15: PILAR 3 - HERENCIA -->
+<div class="slide">
+    <h2>3. Herencia</h2>
+    <p>Permite definir una clase nueva a partir de una existente, heredando sus atributos y métodos.</p>
+    <div class="grid">
+        <div class="code-container">
+            <span class="code-comment">// Clase Padre</span><br>
+            <span class="code-keyword">class</span> <span class="code-class">Trabajador</span> {<br>
+            &nbsp;&nbsp;<span class="code-keyword">public string</span> nombre;<br>
+            &nbsp;&nbsp;<span class="code-keyword">public double</span> sueldoBase;<br>
+            }<br><br>
+            <span class="code-comment">// Clase Hija (Hereda de Trabajador)</span><br>
+            <span class="code-keyword">class</span> <span class="code-class">Administrativo</span> : <span class="code-class">Trabajador</span> {<br>
+            &nbsp;&nbsp;<span class="code-keyword">public double</span> bonoSeguro;<br>
+            }
+        </div>
+        <div class="example-box">
+            <h3>Jerarquía UTHH</h3>
+            <p><strong>Clase Base:</strong> Trabajador</p>
+            <p><strong>Clases Derivadas:</strong></p>
+            <ul>
+                <li>ProfesorTC (Hereda nombre y añade apoyoDidactico).</li>
+                <li>Administrativo (Hereda nombre y añade bonoSeguro).</li>
+            </ul>
+            <p>Evita la redundancia de código al no tener que redefinir "nombre" o "RFC" en cada tipo de empleado.</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 16: PILAR 4 - POLIMORFISMO -->
+<div class="slide">
+    <h2>4. Polimorfismo</h2>
+    <div class="grid">
+        <div>
+            <p>Literalmente significa <strong>"muchas formas"</strong>. Es la capacidad de que objetos de diferentes clases herederas respondan al mismo método de formas distintas.</p>
+            <div class="example-box" style="margin-top: 20px;">
+                <p><strong>Ejemplo:</strong> El método <code>CalcularSueldo()</code> se comporta distinto si el objeto es un Profesor (suma horas) o un Administrativo (suma bonos fixed).</p>
+            </div>
+        </div>
+        <div class="code-container">
+            <span class="code-keyword">virtual void</span> <span class="code-method">CalcularSueldo</span>() { <span class="code-comment">/* Base */</span> }<br><br>
+            <span class="code-comment">// En clase Profesor</span><br>
+            <span class="code-keyword">override void</span> <span class="code-method">CalcularSueldo</span>() {<br>
+            &nbsp;&nbsp;sueldo = base + apoyoDidactico;<br>
+            }<br><br>
+            <span class="code-comment">// En clase Administrativo</span><br>
+            <span class="code-keyword">override void</span> <span class="code-method">CalcularSueldo</span>() {<br>
+            &nbsp;&nbsp;sueldo = base + bono;<br>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 17: CIERRE -->
+<div class="slide">
+    <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+        <h2 style="border: none;">¡Muchas Gracias!</h2>
+        <p style="font-size: 24px;">¿Tienen alguna pregunta sobre el Paradigma de Objetos?</p>
+        <div style="margin-top: 50px;">
+            <p><strong>Ing. Gadiel Ramos Hernández</strong></p>
+            <p>gadiel.ramos@uthh.edu.mx</p>
+            <p>Ingeniería en Desarrollo y Gestión de Software</p>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
