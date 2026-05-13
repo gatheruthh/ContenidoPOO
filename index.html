@@ -41,11 +41,10 @@
             box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.7);
             margin-bottom: 80px;
             overflow: hidden;
-            width: 800px; /* Ancho fijo para mantener consistencia de hoja */
+            width: 800px;
             max-width: 100%;
             margin-left: auto;
             margin-right: auto;
-            /* Eliminamos min-height fijo para que se adapte a la imagen */
             display: flex;
             flex-direction: column;
         }
@@ -57,7 +56,7 @@
         }
         .page-img {
             width: 100%;
-            height: auto; /* La altura se ajusta proporcionalmente a la diapositiva */
+            height: auto;
             display: block;
             object-fit: contain; 
             background: #fff;
@@ -74,9 +73,8 @@
             margin-right: 10px;
         }
 
-        /* Estilos específicos para la Portada Generada por Código */
         .portada-container {
-            min-height: 1100px; /* La portada mantiene su tamaño elegante */
+            min-height: 1100px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -103,7 +101,6 @@
     <header class="h-20 glass-header flex items-center justify-between px-8 shrink-0 z-50">
         <div class="flex items-center gap-6">
             <img src="img/logo_uthh.png" alt="UTHH" class="h-12 object-contain" onerror="this.src='https://www.uthh.edu.mx/images/logo_uthh.png'; this.classList.add('brightness-0', 'invert');">
-
             <div class="hidden lg:block">
                 <h1 class="text-lg font-extrabold tracking-tight text-white">Programación Orientada a Objetos</h1>
                 <p class="text-[10px] uppercase tracking-[0.3em] text-uthh-gold font-bold">Portal de Aprendizaje Avanzado</p>
@@ -116,7 +113,7 @@
             </div>
             <div class="bg-white/5 p-2 px-4 rounded-xl border border-white/10 flex items-center gap-3">
                 <i class="fas fa-file-alt text-uthh-gold"></i>
-                <span class="text-xs font-bold uppercase tracking-widest">34 Hojas</span>
+                <span class="text-xs font-bold uppercase tracking-widest">37 Hojas</span>
             </div>
         </div>
     </header>
@@ -143,52 +140,56 @@
     </div>
 
     <script>
-        const totalPages = 34;
+        const totalPages = 37;
         const sidebar = document.getElementById('sidebar-nav');
         const content = document.getElementById('pages-content');
         const viewer = document.getElementById('viewer');
 
+        // Mapeo exacto de los 37 temas proporcionados
         const contentData = {
-            1: { title: "Presentación", desc: "Información institucional y docente.", color: "bg-green-900/30" },
-            2: { title: "Temas", desc: "Desglose de contenidos y dimensiones del saber.", color: "bg-green-900/30" },
+            1: { title: "Portada", desc: "Información institucional y docente.", color: "bg-green-900/30" },
+            2: { title: "Unidades", desc: "Desglose de contenidos y dimensiones del saber.", color: "bg-green-900/30" },
             3: { title: "Evolución de los lenguajes", desc: "Historia y desarrollo de la programación.", color: "bg-blue-900/30" },
-            4: { title: "Paradigmas de programación", desc: "Clasificación de las formas de programar.", color: "bg-blue-900/30" },
-            5: { title: "Ejemplo de paradigma Estructurado", desc: "Lógica secuencial y control de flujo.", color: "bg-indigo-900/30" },
-            6: { title: "Ejemplo de paradigma Estructurado", desc: "Profundización en programación procedimental.", color: "bg-indigo-900/30" },
+            4: { title: "Paradigmas de programación(Estructurado y Poo)", desc: "Clasificación de las formas de programar.", color: "bg-blue-900/30" },
+            5: { title: "Ejemplo de paradigma Estructurado con procedimientos", desc: "Lógica secuencial y control de flujo.", color: "bg-indigo-900/30" },
+            6: { title: "Ejemplo de paradigma Estructurado con funciones", desc: "Profundización en programación procedimental.", color: "bg-indigo-900/30" },
             7: { title: "Paradigma orientado a objetos", desc: "Fundamentos y filosofía del modelo POO.", color: "bg-purple-900/30" },
-            8: { title: "Clases, objetos, atributos, métodos", desc: "Los 4 elementos base de la construcción POO.", color: "bg-purple-900/30" },
-            9: { title: "Instancias y Constructor", desc: "El nacimiento de los objetos y su inicialización.", color: "bg-purple-900/30" },
-            10: { title: "Ejemplo 1 de Clases y Objetos", desc: "Modelado práctico de entidades del mundo real.", color: "bg-yellow-900/30" },
+            8: { title: "Clases, objetos, atributos, métodos", desc: "Elementos base de la construcción POO.", color: "bg-purple-900/30" },
+            9: { title: "Ejemplo de Clases, objetos, atributos y métodos", desc: "Modelado práctico de entidades.", color: "bg-purple-900/30" },
+            10: { title: "Instancias y Constructor", desc: "El nacimiento de los objetos y su inicialización.", color: "bg-purple-900/30" },
             11: { title: "Ejemplo 1 de Clases y Objetos", desc: "Análisis y representación técnica.", color: "bg-yellow-900/30" },
             12: { title: "Ejemplo 2 de Clases y Objetos", desc: "Definición de estados y comportamientos.", color: "bg-yellow-900/30" },
-            13: { title: "Ejemplo 2 de Clases y Objetos", desc: "Interacción entre atributos y métodos.", color: "bg-yellow-900/30" },
-            14: { title: "Ejemplo 3 de Clases y Objetos", desc: "Uso de parámetros y retorno de datos.", color: "bg-yellow-900/30" },
-            15: { title: "Ejemplo 3 de Clases y Objetos", desc: "Optimización del código del objeto.", color: "bg-yellow-900/30" },
-            16: { title: "Ejemplo 4 de Clases y Objetos", desc: "Estructuras complejas de datos.", color: "bg-yellow-900/30" },
-            17: { title: "Ejemplo 4 de Clases y Objetos", desc: "Casos de uso avanzados.", color: "bg-yellow-900/30" },
-            18: { title: "Ejemplo 5 de Clases y Objetos", desc: "Validación de lógica interna.", color: "bg-yellow-900/30" },
-            19: { title: "Ejemplo 6 de Clases y Objetos", desc: "Implementación de clases personalizadas.", color: "bg-yellow-900/30" },
-            20: { title: "Ejemplo 6 de Clases y Objetos", desc: "Análisis final de modelado.", color: "bg-yellow-900/30" },
-            21: { title: "Los pilares de la POO", desc: "Resumen de los fundamentos: Abstracción, Encapsulamiento, Herencia y Polimorfismo.", color: "bg-orange-900/30" },
+            13: { title: "Ejemplo 2 de Clases, objetos, Métodos, atributos", desc: "Interacción entre atributos y métodos.", color: "bg-yellow-900/30" },
+            14: { title: "Ejemplo 3 de Clases, objetos, Métodos, atributos", desc: "Uso de parámetros y retorno de datos.", color: "bg-yellow-900/30" },
+            15: { title: "Ejemplo 3 de Clases, objetos, Métodos, atributos", desc: "Optimización del código del objeto.", color: "bg-yellow-900/30" },
+            16: { title: "Ejemplo 4 de Clases, objetos, Métodos, atributos", desc: "Estructuras complejas de datos.", color: "bg-yellow-900/30" },
+            17: { title: "Ejemplo 4 de Clases, objetos, Métodos, atributos", desc: "Casos de uso avanzados.", color: "bg-yellow-900/30" },
+            18: { title: "Ejemplo 5 de Clases, objetos, Métodos, atributos", desc: "Validación de lógica interna.", color: "bg-yellow-900/30" },
+            19: { title: "Ejemplo 6 de Clases, objetos, Métodos, atributos", desc: "Implementación de clases personalizadas.", color: "bg-yellow-900/30" },
+            20: { title: "Ejemplo 6 de Clases, objetos, Métodos, atributos", desc: "Análisis final de modelado.", color: "bg-yellow-900/30" },
+            21: { title: "Los pilares de la POO", desc: "Abstracción, Encapsulamiento, Herencia y Polimorfismo.", color: "bg-orange-900/30" },
             22: { title: "Abstracción", desc: "Identificar lo esencial eliminando lo innecesario.", color: "bg-orange-900/30" },
             23: { title: "Encapsulamiento", desc: "Protección de datos mediante modificadores de acceso.", color: "bg-red-900/30" },
             24: { title: "Encapsulamiento - continúa", desc: "Uso de Getters y Setters para seguridad.", color: "bg-red-900/30" },
             25: { title: "Herencia", desc: "Reutilización de código mediante jerarquías.", color: "bg-cyan-900/30" },
             26: { title: "Herencia - continúa", desc: "Relación Superclase y Subclase.", color: "bg-cyan-900/30" },
-            27: { title: "Herencia - ejemplo", desc: "Especialización de clases.", color: "bg-cyan-900/30" },
-            28: { title: "Herencia - ejemplo", desc: "Atributos protegidos y constructores hijos.", color: "bg-cyan-900/30" },
-            29: { title: "Herencia - ejemplo", desc: "Extensión de funcionalidades.", color: "bg-cyan-900/30" },
-            30: { title: "Polimorfismo", desc: "Capacidad de actuar de diferentes formas ante el mismo mensaje.", color: "bg-pink-900/30" },
-            31: { title: "Polimorfismo - ejemplo", desc: "Sobreescritura de métodos (Override).", color: "bg-pink-900/30" },
-            32: { title: "Polimorfismo - ejemplo", desc: "Comportamientos dinámicos en ejecución.", color: "bg-pink-900/30" },
-            33: { title: "Polimorfismo - ejemplo", desc: "Relación entre clases hermanas.", color: "bg-pink-900/30" },
-            34: { title: "Polimorfismo - ejemplo práctico", desc: "Aplicación final en lógica de negocio.", color: "bg-pink-900/30" }
+            27: { title: "Herencia - continúa (Ejemplo)", desc: "Especialización de clases.", color: "bg-cyan-900/30" },
+            28: { title: "Herencia - continúa (Ejemplo)", desc: "Atributos protegidos y constructores.", color: "bg-cyan-900/30" },
+            29: { title: "Herencia - continúa (Ejemplo)", desc: "Extensión de funcionalidades.", color: "bg-cyan-900/30" },
+            30: { title: "Polimorfismo", desc: "Múltiples formas ante el mismo mensaje.", color: "bg-pink-900/30" },
+            31: { title: "Polimorfismo - continúa", desc: "Conceptos avanzados de polimorfismo.", color: "bg-pink-900/30" },
+            32: { title: "Polimorfismo - ejemplo", desc: "Sobreescritura de métodos (Override).", color: "bg-pink-900/30" },
+            33: { title: "Polimorfismo - ejemplo", desc: "Comportamientos dinámicos.", color: "bg-pink-900/30" },
+            34: { title: "Polimorfismo - ejemplo", desc: "Relación entre clases hermanas.", color: "bg-pink-900/30" },
+            35: { title: "Polimorfismo - ejemplo práctico", desc: "Aplicación en lógica de negocio.", color: "bg-pink-900/30" },
+            36: { title: "Polimorfismo - ejemplo práctico continúa", desc: "Profundización en el caso práctico.", color: "bg-pink-900/30" },
+            37: { title: "Polimorfismo - ejemplo práctico continúa", desc: "Conclusión de la implementación final.", color: "bg-pink-900/30" }
         };
 
         for (let i = 1; i <= totalPages; i++) {
-            const data = contentData[i] || { title: `Página ${i}`, desc: "Contenido del curso.", color: "bg-gray-800" };
+            const data = contentData[i] || { title: `Hoja ${i}`, desc: "Contenido del curso.", color: "bg-gray-800" };
 
-            // Sidebar Item
+            // Generar Sidebar Item
             const link = document.createElement('a');
             link.href = `#hoja-${i}`;
             link.id = `nav-hoja-${i}`;
@@ -207,7 +208,7 @@
             };
             sidebar.appendChild(link);
 
-            // Contenido Page
+            // Generar Contenedor de Página
             const container = document.createElement('div');
             container.id = `hoja-${i}`;
             container.className = "mb-32 flex flex-col items-center";
@@ -225,22 +226,19 @@
             `;
 
             if (i === 1) {
-                // GENERACIÓN DE PORTADA POR CÓDIGO
+                // PORTADA ESPECIAL
                 innerHTML += `
                 <div class="page-card">
                     <div class="portada-container">
                         <div class="portada-decoration"></div>
-                        
-                        <!-- Top Header -->
                         <div class="flex justify-between items-start border-b-2 border-gray-100 pb-8 relative">
-                            <img src="https://www.uthh.edu.mx/images/logo_uthh.png" class="h-20 object-contain">
+                            <img src="img/logo_uthh.png" class="h-20 object-contain">
                             <div class="text-right">
                                 <h4 class="font-black text-gray-400 text-[10px] uppercase tracking-widest mb-1">Institución</h4>
                                 <p class="font-bold text-sm text-[#006341]">Universidad Tecnológica de la<br>Huasteca Hidalguense</p>
                             </div>
                         </div>
 
-                        <!-- Main Title -->
                         <div class="flex-1 flex flex-col justify-center py-12">
                             <span class="text-[#c5b358] font-black text-xs uppercase tracking-[0.4em] mb-4">Material Didáctico de Especialidad</span>
                             <h1 class="text-6xl font-black text-gray-900 leading-[1.1] mb-6">
@@ -254,7 +252,6 @@
                             </h2>
                         </div>
 
-                        <!-- Teacher Info Card -->
                         <div class="bg-gray-50 rounded-3xl p-8 border border-gray-100 flex items-center gap-8 shadow-sm">
                             <div class="w-24 h-24 bg-[#006341] rounded-2xl flex items-center justify-center text-white text-4xl">
                                 <i class="fas fa-laptop-code"></i>
@@ -263,18 +260,15 @@
                                 <p class="text-[10px] font-black text-[#c5b358] uppercase tracking-widest mb-1">Docente Titular</p>
                                 <h3 class="text-2xl font-black text-gray-800">Ing. Gadiel Ramos Hernández</h3>
                                 <p class="text-sm font-bold text-gray-500 mb-3 underline decoration-[#c5b358]">gadiel.ramos@uthh.edu.mx</p>
-                                
                                 <div class="flex flex-wrap gap-2 mt-4">
                                     <span class="bg-white border border-gray-200 text-[9px] font-black text-[#006341] px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">Móvil</span>
                                     <span class="bg-white border border-gray-200 text-[9px] font-black text-[#006341] px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">Web</span>
                                     <span class="bg-white border border-gray-200 text-[9px] font-black text-[#006341] px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">Escritorio</span>
-                                    <span class="bg-white border border-gray-200 text-[9px] font-black text-[#006341] px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">Bases de Datos</span>
-                                    <span class="bg-[#006341] text-white text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">IA Implementation</span>
+                                    <span class="bg-[#006341] text-white text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">AI Implementation</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Footer Portada -->
                         <div class="mt-12 flex justify-between items-end border-t border-gray-100 pt-8">
                             <div class="text-[9px] font-bold text-gray-400 uppercase leading-loose">
                                 <p>Huejutla de Reyes, Hidalgo</p>
@@ -287,10 +281,10 @@
                     </div>
                 </div>`;
             } else {
-                // RESTO DE PÁGINAS (EL CONTENEDOR SE ADAPTA A LA PROPORCIÓN DE LA DIAPOSITIVA)
+                // DIAPOSITIVAS (hoja2.JPG ... hoja37.JPG)
                 innerHTML += `
                 <div class="page-card">
-                    <img src="img/hoja${i}.JPG" alt="${data.title}" class="page-img" 
+                    <img src="img/Diapositiva${i}.JPG" alt="${data.title}" class="page-img" 
                          onerror="this.src='https://via.placeholder.com/800x450/ffffff/333333?text=HOJA+${i}+-+DIAPOSITIVA\\n\\n(Cargar+hoja${i}.JPG+en+carpeta+img/)'">
                 </div>`;
             }
@@ -306,6 +300,7 @@
             });
         }
 
+        // Detector de scroll para actualizar la barra lateral
         let isScrolling;
         viewer.addEventListener('scroll', () => {
             window.clearTimeout(isScrolling);
@@ -320,6 +315,7 @@
             }, 100);
         });
 
+        // Inicializar primer item
         updateActiveLink(1);
     </script>
 </body>
